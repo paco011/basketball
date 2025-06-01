@@ -1,122 +1,610 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>バスケ社会人サークル メンバー募集</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>チームシースルー / バスケットボールチーム</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Source+Serif+Pro:wght@400;600&display=swap" rel="stylesheet" />
   <style>
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
     body {
-      font-family: 'Helvetica', 'Arial', sans-serif;
-      margin: 0;
-      padding: 0;
-      line-height: 1.6;
-      background-color: #f5f5f5;
+      font-family: 'Roboto', sans-serif;
+      line-height: 1.7;
+      background-color: #f4f4f9;
       color: #333;
     }
-
     header {
-      background-color: #005bbb;
-      color: white;
-      padding: 1.5rem;
+      background-color: #2c3e50;
+      color: #fff;
+      padding: 4rem 1rem 2rem;
       text-align: center;
     }
-
+    header h1 {
+      font-family: 'Source Serif Pro', serif;
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+    }
+    header p {
+      font-size: 1.2rem;
+      color: #bdc3c7;
+    }
     nav {
-      background-color: #003f7d;
+      background-color: #34495e;
+      padding: 1rem;
       text-align: center;
-      padding: 0.5rem;
     }
-
     nav a {
-      color: white;
+      color: #ecf0f1;
       text-decoration: none;
       margin: 0 1rem;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+    }
+    nav a:hover {
+      color: #1abc9c;
+    }
+    main {
+      max-width: 960px;
+      margin: 3rem auto;
+      padding: 0 1rem;
+    }
+    section {
+      background: #fff;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    section h2 {
+      font-size: 1.8rem;
+      color: #0d1117;
+      border-left: 5px solid #58a6ff;
+      padding-left: 0.75rem;
+      margin-bottom: 1rem;
+      font-family: 'Source Serif Pro', serif;
+      position: relative;
+    }
+    section ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    section ul li {
+      margin-bottom: 0.5rem;
+    }
+    iframe {
+      width: 100%;
+      height: 300px;
+      border: none;
+      border-radius: 8px;
+      margin-top: 1rem;
+    }
+    footer {
+      background-color: #2c3e50;
+      color: #999;
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: 0.9rem;
+    }
+    a {
+      color: #1a73e8;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* カレンダー */
+    #calendar {
+      position: relative; /* 管理者ボタン配置用 */
+    }
+    #calendar-title {
+      display: inline-block;
+      margin: 0 1rem;
+      font-weight: normal;
+    }
+    #calendar-title button {
+      margin: 0 1rem;
+      font-size: 1.2rem;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: #1abc9c;
+      font-weight: bold;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: center;
+      margin-top: 1rem;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 0.5rem;
+      width: 14.2857%;
+      height: 60px;
+      vertical-align: top;
+      position: relative;
+      cursor: default;
+    }
+    .past-day {
+      color: #aaa;
+      text-decoration: line-through;
+    }
+    .today {
+      font-weight: bold;
+      /* 緑の装飾はなし */
+    }
+    .event {
+      font-weight: bold;
+      color: #d35400;
+      cursor: pointer;
+      padding-right: 18px; /* スペース確保 */
+    }
+    .event::after {
+      content: "●";
+      position: absolute;
+      top: 4px;
+      right: 5px;
+      font-size: 1rem;
+      color: #e67e22;
+      pointer-events: none;
+    }
+
+    /* 管理者モード切替ボタン - カレンダー右下に配置 */
+    #admin-control {
+      position: absolute;
+      bottom: 1rem;
+      right: 1rem;
+      text-align: right;
+      z-index: 10;
+    }
+    #toggle-admin-btn, #logout-btn {
+      background-color: #1abc9c;
+      border: none;
+      color: white;
+      padding: 0.6rem 1.2rem;
+      font-size: 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-left: 0.5rem;
+    }
+    #toggle-admin-btn:hover, #logout-btn:hover {
+      background-color: #159d82;
+    }
+
+    /* イベント追加フォーム */
+    #event-form {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+    #event-form input[type="date"], #event-form input[type="text"] {
+      padding: 0.4rem 0.6rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      min-width: 150px;
+    }
+    #event-form button {
+      background-color: #d35400;
+      border: none;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+    #event-form button:hover {
+      background-color: #b24300;
+    }
+
+    /* エラーメッセージ */
+    #password-error {
+      color: red;
+      margin-top: 0.5rem;
       font-weight: bold;
     }
 
-    .container {
-      max-width: 900px;
-      margin: 2rem auto;
-      padding: 0 1rem;
+    /* モーダル */
+    #event-modal, #password-modal {
+      display: none;
+      position: fixed;
+      top:0; left:0; right:0; bottom:0;
+      background: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    #event-modal .modal-content, #password-modal .modal-content {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      max-width: 90%;
+      max-height: 80%;
+      overflow-y: auto;
+      position: relative;
+    }
+    #event-modal .close-btn, #password-modal .close-btn {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.75rem;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #999;
+      cursor: pointer;
+      user-select: none;
+    }
+    #event-modal .close-btn:hover, #password-modal .close-btn:hover {
+      color: #333;
     }
 
-    section {
-      margin-bottom: 2rem;
-      background: white;
-      padding: 1.5rem;
-      border-radius: 10px;
-      box-shadow: 0 0 8px rgba(0,0,0,0.1);
-    }
+#contact-form {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
 
-    h2 {
-      color: #005bbb;
-    }
+#contact-form input[type="text"],
+#contact-form input[type="email"],
+#contact-form textarea {
+  padding: 0.75rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  width: 100%;
+  font-family: 'Roboto', sans-serif;
+}
 
-    footer {
-      text-align: center;
-      padding: 1rem;
-      background: #eee;
-      font-size: 0.9rem;
-      color: #666;
-    }
+#contact-form textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+#contact-form button {
+  background-color: #1abc9c;
+  color: white;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+#contact-form button:hover {
+  background-color: #159d82;
+}
+
 
     @media (max-width: 600px) {
       nav a {
         display: block;
         margin: 0.5rem 0;
       }
+      header h1 {
+        font-size: 2rem;
+      }
+      section h2 {
+        font-size: 1.5rem;
+      }
+      #event-form {
+        flex-direction: column;
+        align-items: center;
+      }
+      #event-form input, #event-form button {
+        width: 90%;
+        max-width: 300px;
+      }
+      /* モバイル時の管理者ボタン位置調整 */
+      #admin-control {
+        position: static;
+        margin-top: 1rem;
+        text-align: center;
+      }
+      #toggle-admin-btn, #logout-btn {
+        margin-left: 0;
+        margin-right: 0.5rem;
+      }
+#contact-form {
+  padding: 1.5rem;
+}
+
     }
   </style>
 </head>
 <body>
 
 <header>
-  <h1>バスケ社会人サークル</h1>
-  <p>新メンバー大募集中！初心者・経験者どちらも歓迎！</p>
+  <h1>チームシースルー</h1>
+  <p>バスケットボールチーム - 新メンバー募集中！</p>
 </header>
 
 <nav>
-  <a href="#about">サークル紹介</a>
+  <a href="#about">チーム紹介</a>
   <a href="#schedule">活動日時・場所</a>
+  <a href="#calendar">今月の予定</a>
   <a href="#join">参加方法</a>
   <a href="#contact">お問い合わせ</a>
 </nav>
 
-<div class="container">
+<main>
 
   <section id="about">
-    <h2>サークル紹介</h2>
-    <p>私たちは毎週楽しくバスケをしている社会人サークルです。20代〜40代の男女が参加しており、和気あいあいとした雰囲気が特徴です。運動不足解消やバスケを楽しみたい方、お気軽にご参加ください！</p>
+    <h2>チーム紹介</h2>
+    <p>
+      毎週楽しくバスケをしているチームです。10代〜60代の男女が参加しており、参加者全員が楽しめる活動を行っています。
+      運動不足解消やバスケを楽しみたい方、パスやシュートに自信がなくても大歓迎！お気軽にご参加ください！<br />
+      活動内容は、メンバーそれぞれにシューティングやアップを行い、頃合いを見てゲーム開始となります。<br />
+      ※参加メンバーが少ないときは、５対５のゲームができないことがあります。その場合は、３対３などできる範囲での活動となります。
+    </p>
   </section>
 
   <section id="schedule">
     <h2>活動日時・場所</h2>
     <ul>
-      <li><strong>日時：</strong> 毎週土曜 18:00〜21:00</li>
-      <li><strong>場所：</strong> ○○市立体育館（○○駅から徒歩10分）</li>
-      <li><strong>参加費：</strong> 1回 500円（体育館代など）</li>
+      <li><strong>日時：</strong> 毎週火曜 20:00〜21:30 　※別の曜日に活動が入ることがあります</li>
+      <li><strong>場所：</strong> 三芳町立三芳中学校 体育館</li>
+      <li><strong>参加費：</strong> 無料</li>
     </ul>
+  </section>
+
+  <section id="calendar">
+    <h2>
+      <button id="prev-month">←</button>
+      <span id="calendar-title">🗓 カレンダー</span>
+      <button id="next-month">→</button>
+    </h2>
+    <table>
+      <thead>
+        <tr>
+          <th>日</th><th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th>土</th>
+        </tr>
+      </thead>
+      <tbody id="calendar-body"></tbody>
+    </table>
+
+    <!-- 管理者モード切替ボタンをカレンダー内右下に配置 -->
+    <div id="admin-control">
+      <button id="toggle-admin-btn">管理者モードにログイン</button>
+      <button id="logout-btn" style="display:none;">管理者モードを解除</button>
+    </div>
+
+    <!-- 管理者モード時のみ表示されるイベント追加フォーム -->
+    <form id="event-form" style="display:none;" autocomplete="off">
+      <input type="date" id="event-date" required />
+      <input type="text" id="event-desc" placeholder="イベント内容を入力" required />
+      <button type="submit">イベント追加</button>
+    </form>
   </section>
 
   <section id="join">
     <h2>参加方法</h2>
-    <p>初めての方は、下記の「お問い合わせ」よりご連絡ください。見学や体験参加も大歓迎です！</p>
+    <p>初めての方は「お問い合わせ」よりご連絡ください。見学や体験参加も大歓迎です！</p>
   </section>
 
-  <section id="contact">
-    <h2>お問い合わせ</h2>
-    <p>参加希望やご質問は、以下のフォームまたはメールにてご連絡ください。</p>
-    <ul>
-      <li>📧 メール: <a href="mailto:example@example.com">example@example.com</a></li>
-      <li>📋 フォーム: <a href="https://forms.gle/your-form-url" target="_blank">Googleフォームで問い合わせる</a></li>
-    </ul>
-  </section>
+<section id="contact">
+  <h2>お問い合わせ</h2>
 
-</div>
+  <form id="contact-form" action="https://formsubmit.co/toshihiro_k2002jp@yahoo.co.jp" method="POST">
+    <input type="hidden" name="_next" value="https://yourdomain.com/thanks.html">
+    <input type="hidden" name="_subject" value="お問い合わせ">
+
+    <input type="text" name="name" placeholder="お名前またはニックネーム" required>
+    <input type="email" name="email" placeholder="メールアドレス" required>
+    <textarea name="message" placeholder="お問い合わせ内容" required></textarea>
+
+    <input type="text" name="_honey" style="display:none">
+    <button type="submit">送信</button>
+  </form>
+
+</section>
+
+
+
+</main>
 
 <footer>
-  &copy; 2025 バスケ社会人サークル All Rights Reserved.
+  &copy; 2025 チームシースルー. All rights reserved.
 </footer>
+
+<!-- 管理者パスワード入力モーダル -->
+<div id="password-modal">
+  <div class="modal-content">
+    <span class="close-btn" id="password-close">&times;</span>
+    <h3>管理者モードログイン</h3>
+    <p>パスワードを入力してください：</p>
+    <input type="password" id="password-input" />
+    <button id="password-submit">ログイン</button>
+    <p id="password-error"></p>
+  </div>
+</div>
+
+<script>
+  const ADMIN_PASSWORD = "0907"; // 管理者パスワード変更
+
+  const calendarBody = document.getElementById("calendar-body");
+  const calendarTitle = document.getElementById("calendar-title");
+  const prevMonthBtn = document.getElementById("prev-month");
+  const nextMonthBtn = document.getElementById("next-month");
+
+  const toggleAdminBtn = document.getElementById("toggle-admin-btn");
+  const logoutBtn = document.getElementById("logout-btn");
+  const eventForm = document.getElementById("event-form");
+  const eventDateInput = document.getElementById("event-date");
+  const eventDescInput = document.getElementById("event-desc");
+
+  const passwordModal = document.getElementById("password-modal");
+  const passwordInput = document.getElementById("password-input");
+  const passwordSubmitBtn = document.getElementById("password-submit");
+  const passwordError = document.getElementById("password-error");
+  const passwordCloseBtn = document.getElementById("password-close");
+
+  let currentYear, currentMonth;
+  let events = JSON.parse(localStorage.getItem("events") || "{}");
+  let isAdmin = false;
+
+  function renderCalendar(year, month) {
+    currentYear = year;
+    currentMonth = month;
+
+    calendarTitle.textContent = `🗓 ${year}年${month + 1}月の予定`;
+
+    // カレンダー日付の開始日・終了日を取得
+    const firstDay = new Date(year, month, 1);
+    const lastDay = new Date(year, month + 1, 0);
+    const firstWeekday = firstDay.getDay();
+    const daysInMonth = lastDay.getDate();
+
+    calendarBody.innerHTML = "";
+
+    let date = 1;
+    for (let i = 0; i < 6; i++) { // 最大6行
+      const row = document.createElement("tr");
+      for (let j = 0; j < 7; j++) {
+        const cell = document.createElement("td");
+
+        if (i === 0 && j < firstWeekday) {
+          cell.textContent = "";
+        } else if (date > daysInMonth) {
+          cell.textContent = "";
+        } else {
+          const dayStr = `${year}-${String(month + 1).padStart(2, "0")}-${String(date).padStart(2, "0")}`;
+          cell.textContent = date;
+
+          const today = new Date();
+          const cellDate = new Date(year, month, date);
+
+          // 過去の日付はグレーで取り消し線
+          if (cellDate < new Date(today.getFullYear(), today.getMonth(), today.getDate())) {
+            cell.classList.add("past-day");
+          }
+
+          // 今日の日付は太字に（装飾はなし）
+          if (
+            cellDate.getFullYear() === today.getFullYear() &&
+            cellDate.getMonth() === today.getMonth() &&
+            cellDate.getDate() === today.getDate()
+          ) {
+            cell.classList.add("today");
+          }
+
+          // イベントがあれば装飾
+          if (events[dayStr]) {
+            cell.classList.add("event");
+            cell.title = events[dayStr];
+            cell.addEventListener("click", () => {
+              alert(`${dayStr} のイベント:\n${events[dayStr]}`);
+            });
+          }
+
+          date++;
+        }
+        row.appendChild(cell);
+      }
+      calendarBody.appendChild(row);
+    }
+  }
+
+  prevMonthBtn.addEventListener("click", () => {
+    if (currentMonth === 0) {
+      currentYear--;
+      currentMonth = 11;
+    } else {
+      currentMonth--;
+    }
+    renderCalendar(currentYear, currentMonth);
+  });
+
+  nextMonthBtn.addEventListener("click", () => {
+    if (currentMonth === 11) {
+      currentYear++;
+      currentMonth = 0;
+    } else {
+      currentMonth++;
+    }
+    renderCalendar(currentYear, currentMonth);
+  });
+
+  // 管理者モード切替
+  toggleAdminBtn.addEventListener("click", () => {
+    passwordInput.value = "";
+    passwordError.textContent = "";
+    passwordModal.style.display = "flex";
+    passwordInput.focus();
+  });
+
+  passwordCloseBtn.addEventListener("click", () => {
+    passwordModal.style.display = "none";
+  });
+
+  passwordSubmitBtn.addEventListener("click", () => {
+    const inputPwd = passwordInput.value;
+    if (inputPwd === ADMIN_PASSWORD) {
+      isAdmin = true;
+      passwordModal.style.display = "none";
+      eventForm.style.display = "flex";
+      toggleAdminBtn.style.display = "none";
+      logoutBtn.style.display = "inline-block";
+      alert("管理者モードにログインしました。");
+    } else {
+      passwordError.textContent = "パスワードが違います。";
+    }
+  });
+
+  logoutBtn.addEventListener("click", () => {
+    if (confirm("管理者モードを解除しますか？")) {
+      isAdmin = false;
+      eventForm.style.display = "none";
+      logoutBtn.style.display = "none";
+      toggleAdminBtn.style.display = "inline-block";
+    }
+  });
+
+  eventForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const dateVal = eventDateInput.value;
+    const descVal = eventDescInput.value.trim();
+    if (!dateVal || !descVal) {
+      alert("日付とイベント内容を入力してください。");
+      return;
+    }
+
+    // 過去の日付のイベント追加は不可
+    const selectedDate = new Date(dateVal);
+    const today = new Date();
+    if (selectedDate < new Date(today.getFullYear(), today.getMonth(), today.getDate())) {
+      alert("過去の日付にはイベントを追加できません。");
+      return;
+    }
+
+    events[dateVal] = descVal;
+    localStorage.setItem("events", JSON.stringify(events));
+    alert("イベントを追加しました。");
+    eventDateInput.value = "";
+    eventDescInput.value = "";
+    renderCalendar(currentYear, currentMonth);
+  });
+
+  // ページ初期表示時
+  const today = new Date();
+  renderCalendar(today.getFullYear(), today.getMonth());
+</script>
 
 </body>
 </html>
