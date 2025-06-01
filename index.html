@@ -215,38 +215,40 @@
       font-weight: bold;
     }
 
-    /* モーダル */
-    #event-modal, #password-modal {
-      display: none;
-      position: fixed;
-      top:0; left:0; right:0; bottom:0;
-      background: rgba(0,0,0,0.5);
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
-    #event-modal .modal-content, #password-modal .modal-content {
-      background: #fff;
-      padding: 2rem;
-      border-radius: 8px;
-      max-width: 90%;
-      max-height: 80%;
-      overflow-y: auto;
-      position: relative;
-    }
-    #event-modal .close-btn, #password-modal .close-btn {
-      position: absolute;
-      top: 0.5rem;
-      right: 0.75rem;
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: #999;
-      cursor: pointer;
-      user-select: none;
-    }
-    #event-modal .close-btn:hover, #password-modal .close-btn:hover {
-      color: #333;
-    }
+ #event-modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+#event-modal .modal-content {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  max-width: 90%;
+  max-height: 80%;
+  overflow-y: auto;
+  position: relative;
+}
+
+#event-modal .close-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.75rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #999;
+  cursor: pointer;
+}
+
+#event-modal .close-btn:hover {
+  color: #333;
+}
+
 
 #contact-form {
   margin-top: 1rem;
@@ -433,17 +435,15 @@
   &copy; 2025 チームシースルー. All rights reserved.
 </footer>
 
-<!-- 管理者パスワード入力モーダル -->
-<div id="password-modal">
+<!-- イベント詳細モーダル -->
+<div id="event-modal">
   <div class="modal-content">
-    <span class="close-btn" id="password-close">&times;</span>
-    <h3>管理者モードログイン</h3>
-    <p>パスワードを入力してください：</p>
-    <input type="password" id="password-input" />
-    <button id="password-submit">ログイン</button>
-    <p id="password-error"></p>
+    <span class="close-btn" id="event-close">&times;</span>
+    <h3>イベントの詳細</h3>
+    <p id="event-detail-text"></p>
   </div>
 </div>
+
   <script src="calendar.js"></script>
 
 </body>
