@@ -6,7 +6,6 @@ const nextMonthBtn = document.getElementById("next-month");
 let currentYear, currentMonth;
 let events = {};
 
-// イベントJSONを読み込む
 async function fetchEvents() {
   try {
     const res = await fetch("events.json");
@@ -21,7 +20,6 @@ async function fetchEvents() {
   }
 }
 
-// カレンダー描画
 function renderCalendar(year, month) {
   currentYear = year;
   currentMonth = month;
@@ -35,14 +33,14 @@ function renderCalendar(year, month) {
 
   calendarBody.innerHTML = "";
 
-  // 今日の日付と比較するための文字列
   const today = new Date();
-  const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
+  const isCurrentMonth = year === today.getFullYear() && month === today.getMonth();
 
   let date = 1;
-  for (let i = 0; i < 6; i++) { // 最大6行の週
+  for (let i = 0; i < 6; i++) {
     const row = document.createElement("tr");
-    for (let j = 0; j < 7; j++) { // 日〜土
+
+    for (let j = 0; j < 7; j++) {
       const cell = document.createElement("td");
 
       if (i === 0 && j < firstWeekday) {
@@ -53,16 +51,15 @@ function renderCalendar(year, month) {
         const dateStr = `${year}-${String(month + 1).padStart(2, "0")}-${String(date).padStart(2, "0")}`;
         cell.textContent = date;
 
-        // 今日の日付を強調
-        if (dateStr === todayStr) {
+        if (isCurrentMonth && date === today.getDate()) {
           cell.classList.add("today");
         }
 
-        // イベントがある日
         if (events[dateStr]) {
           cell.classList.add("event");
           cell.title = events[dateStr];
-          cell.addEventListener("click", () => {
+          cell.addEventListener("click", (e) => {
+            e.preventDefault(); // paco011.github.io 表示防止
             alert(`${dateStr} のイベント：\n${events[dateStr]}`);
           });
         }
@@ -72,25 +69,23 @@ function renderCalendar(year, month) {
 
       row.appendChild(cell);
     }
+
     calendarBody.appendChild(row);
   }
 }
 
-// 月送り（前へ）
 prevMonthBtn.addEventListener("click", () => {
   currentMonth = (currentMonth === 0) ? 11 : currentMonth - 1;
   currentYear = (currentMonth === 11) ? currentYear - 1 : currentYear;
   renderCalendar(currentYear, currentMonth);
 });
 
-// 月送り（次へ）
 nextMonthBtn.addEventListener("click", () => {
   currentMonth = (currentMonth === 11) ? 0 : currentMonth + 1;
   currentYear = (currentMonth === 0) ? currentYear + 1 : currentYear;
   renderCalendar(currentYear, currentMonth);
 });
 
-// 初期表示
 document.addEventListener("DOMContentLoaded", () => {
   const today = new Date();
   currentYear = today.getFullYear();
