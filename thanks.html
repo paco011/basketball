@@ -1,12 +1,32 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>お問い合わせありがとうございました</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;  /* 横中央 */
+      align-items: center;      /* 縦中央 */
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+    }
+    .message {
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
-  <h1>お問い合わせありがとうございました！</h1>
-  <p>メッセージは正常に送信されました。ご連絡いただきありがとうございます。</p>
-  <a href="index.html">ホームへ戻る</a>
+  <div class="message">
+    <h1>お問い合わせありがとうございます</h1>
+    <p>メッセージが送信されました。<br>内容を確認させていただき、折り返しご連絡いたします。</p>
+    <a href="index.html">トップページに戻る</a>
+  </div>
 </body>
 </html>
