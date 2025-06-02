@@ -386,20 +386,18 @@
 <section id="contact">
   <h2>お問い合わせ</h2>
 
- <form 
-  action="https://formsubmit.co/e/916d8f98e58beeccf9f3deca03e2ce2f" 
-  method="POST">
+<form id="contact-form" action="https://formsubmit.co/e/916d8f98e58beeccf9f3deca03e2ce2f" method="POST">
+    <input type="hidden" name="_next" value="https://paco011.github.io/basketball/thanks.html">
+    <input type="hidden" name="_subject" value="お問い合わせ">
+<input type="hidden" name="_captcha" value="false">
 
-  <input type="hidden" name="_next" value="https://paco011.github.io/basketball/thanks.html">
-  <input type="hidden" name="_captcha" value="false">
-  <input type="text" name="_honey" style="display:none">
+    <input type="text" name="name" placeholder="お名前またはニックネーム" required>
+    <input type="email" name="email" placeholder="メールアドレス" required>
+    <textarea name="message" placeholder="お問い合わせ内容" required></textarea>
 
-  <input type="text" name="name" placeholder="お名前またはニックネーム" required>
-  <input type="email" name="email" placeholder="メールアドレス" required>
-  <textarea name="message" placeholder="お問い合わせ内容" required></textarea>
-
-  <button type="submit">送信</button>
-</form>
+    <input type="text" name="_honey" style="display:none">
+    <button type="submit">送信</button>
+  </form>
 
 
 </section>
