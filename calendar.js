@@ -74,7 +74,10 @@ if (events[dateStr]) {
   cell.addEventListener("click", (e) => {
     e.preventDefault();     // 通常は不要だけど念のため残すのはOK
     e.stopPropagation();    // 他のクリックイベントに干渉させない
-    alert(`${dateStr} のイベント：\n${events[dateStr]}`);
+  // モーダルを表示
+document.getElementById("event-detail-text").textContent = `${dateStr} のイベント：\n${events[dateStr]}`;
+document.getElementById("event-modal").style.display = "flex";
+
   });
 }
 
@@ -106,5 +109,9 @@ document.addEventListener("DOMContentLoaded", () => {
   currentYear = today.getFullYear();
   currentMonth = today.getMonth();
   fetchEvents();
+  document.getElementById("event-close").addEventListener("click", () => {
+  document.getElementById("event-modal").style.display = "none";
+});
+
 });
 
