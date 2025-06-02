@@ -54,7 +54,10 @@ function renderCalendar(year, month) {
         if (isCurrentMonth && date === today.getDate()) {
           cell.classList.add("today");
         }
-
+        const cellDate = new Date(year, month, date);
+if (cellDate < today.setHours(0, 0, 0, 0)) {
+  cell.classList.add("past-day");
+}
         if (events[dateStr]) {
           cell.classList.add("event");
           cell.title = events[dateStr];
