@@ -64,14 +64,20 @@ function renderCalendar(year, month) {
         }
 
         // イベント
-        if (events[dateStr]) {
-          cell.classList.add("event");
-          cell.title = events[dateStr];
-          cell.addEventListener("click", (e) => {
-            e.preventDefault(); // paco011.github.io 表示防止
-            alert(`${dateStr} のイベント：\n${events[dateStr]}`);
-          });
-        }
+if (events[dateStr]) {
+  cell.classList.add("event");
+  cell.title = events[dateStr];
+
+  // マウスカーソルを明示的にポインターに
+  cell.style.cursor = "pointer";
+
+  cell.addEventListener("click", (e) => {
+    e.preventDefault();     // 通常は不要だけど念のため残すのはOK
+    e.stopPropagation();    // 他のクリックイベントに干渉させない
+    alert(`${dateStr} のイベント：\n${events[dateStr]}`);
+  });
+}
+
 
         date++;
       }
