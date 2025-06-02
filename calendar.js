@@ -34,6 +34,7 @@ function renderCalendar(year, month) {
   calendarBody.innerHTML = "";
 
   const today = new Date();
+  const todayDate = new Date(today.getFullYear(), today.getMonth(), today.getDate()); // 00:00 にリセット
   const isCurrentMonth = year === today.getFullYear() && month === today.getMonth();
 
   let date = 1;
@@ -51,13 +52,18 @@ function renderCalendar(year, month) {
         const dateStr = `${year}-${String(month + 1).padStart(2, "0")}-${String(date).padStart(2, "0")}`;
         cell.textContent = date;
 
-        if (isCurrentMonth && date === today.getDate()) {
+        const cellDate = new Date(year, month, date);
+
+        // 過去の日
+        if (cellDate < todayDate) {
+          cell.classList.add("past-day");
+
+        // 今日
+        } else if (isCurrentMonth && date === today.getDate()) {
           cell.classList.add("today");
         }
-        const cellDate = new Date(year, month, date);
-if (cellDate < today.setHours(0, 0, 0, 0)) {
-  cell.classList.add("past-day");
-}
+
+        // イベント
         if (events[dateStr]) {
           cell.classList.add("event");
           cell.title = events[dateStr];
@@ -95,3 +101,4 @@ document.addEventListener("DOMContentLoaded", () => {
   currentMonth = today.getMonth();
   fetchEvents();
 });
+
