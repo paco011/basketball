@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>お問い合わせ | チームシースルー</title>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Source Serif Pro', serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fff;
+      color: #0d1117;
+      line-height: 1.8;
+    }
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background-color: white;
+      margin-top: 2.5rem;
+    }
+    nav .logo {
+      margin-right: auto;
+      padding-left: 8rem;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+    nav .logo a {
+      text-decoration: none;
+      color: inherit;
+    }
+    nav .logo a:hover {
+      color: #1abc9c;
+    }
+    nav .menu a {
+      margin-left: 1.5rem;
+      padding-right: 2rem;
+      color: #0d1117;
+      text-decoration: none;
+      font-size: 1.5rem;
+      transition: color 0.3s ease;
+    }
+    nav .menu a:hover {
+      color: #1abc9c;
+    }
+    header {
+      background-color: #f5f5f5;
+      padding: 2rem;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 2.5rem;
+      margin: 0;
+    }
+    main {
+      max-width: 700px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    label {
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+    input, textarea {
+      padding: 0.8rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: 1rem;
+    }
+    textarea {
+      resize: vertical;
+      min-height: 150px;
+    }
+    button {
+      background-color: #1abc9c;
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 4px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      align-self: flex-start;
+    }
+    button:hover {
+      background-color: #159a80;
+    }
+    .back-button {
+      text-align: center;
+      margin: 2.5rem 0 1rem;
+    }
+    .back-button a {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background-color: #666;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+    .back-button a:hover {
+      background-color: #444;
+    }
+    footer {
+      background-color: #f5f5f5;
+      padding: 1rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo"><a href="index.html">埼玉県三芳町のバスケットボールチーム</a></div>
+    <div class="menu">
+      <a href="about.html">チーム紹介</a>
+      <a href="schedule.html">スケジュール</a>
+      <a href="access.html">アクセス</a>
+      <a href="contact.html">お問い合わせ</a>
+    </div>
+  </nav>
+
+  <header>
+    <h1>お問い合わせ</h1>
+  </header>
+
+<main>
+  <form id="contact-form">
+    <input type="hidden" name="_next" value="https://paco011.github.io/basketball/thanks.html">
+    <input type="hidden" name="_subject" value="お問い合わせ">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="text" name="_honey" style="display:none">
+
+    <label for="name">お名前またはニックネーム</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="email">メールアドレス</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="message">お問い合わせ内容</label>
+    <textarea id="message" name="message" required></textarea>
+
+    <button type="button" id="preview-button">送信内容を確認</button>
+  </form>
+
+  <!-- 確認画面エリア -->
+  <div id="confirm-area" style="display:none; margin-top: 2rem;">
+    <h3>確認画面</h3>
+    <p><strong>お名前:</strong> <span id="confirm-name"></span></p>
+    <p><strong>メールアドレス:</strong> <span id="confirm-email"></span></p>
+    <p><strong>お問い合わせ内容:</strong><br><span id="confirm-message"></span></p>
+
+    <button id="submit-button">この内容で送信</button>
+    <button id="edit-button">編集に戻る</button>
+  </div>
+
+  <div class="back-button">
+    <a href="index.html">トップページに戻る</a>
+  </div>
+</main>
+
+  <footer>
+    &copy; 2025 チームシースルー. All Rights Reserved.
+  </footer>
+
+ <script>
+document.addEventListener("DOMContentLoaded", function () {
+  const form = document.getElementById("contact-form");
+  const previewButton = document.getElementById("preview-button");
+  const confirmArea = document.getElementById("confirm-area");
+  const submitButton = document.getElementById("submit-button");
+  const editButton = document.getElementById("edit-button");
+
+  previewButton.addEventListener("click", () => {
+    // 値を取得して表示
+    document.getElementById("confirm-name").textContent = form.name.value;
+    document.getElementById("confirm-email").textContent = form.email.value;
+    document.getElementById("confirm-message").textContent = form.message.value;
+
+    // フォームを非表示、確認画面を表示
+    form.style.display = "none";
+    confirmArea.style.display = "block";
+  });
+
+  editButton.addEventListener("click", () => {
+    // 編集に戻る
+    confirmArea.style.display = "none";
+    form.style.display = "flex";
+  });
+
+  submitButton.addEventListener("click", () => {
+    // 実際の送信処理
+    const formData = new FormData(form);
+    fetch("https://formspree.io/f/xvgrogqo", {
+      method: "POST",
+      body: formData,
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+    .then(response => {
+      if (response.ok) {
+        window.location.href = "thanks.html";
+      } else {
+        alert("送信に失敗しました。もう一度お試しください。");
+      }
+    })
+    .catch(error => {
+      alert("送信エラーが発生しました。");
+      console.error(error);
+    });
+  });
+});
+</script>
+
+</body>
+</html>
