@@ -3,451 +3,199 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>【埼玉　三芳町　バスケ】バスケットボール｜チームシースルー｜社会人　サークル　クラブ　新規　参加　募集　初心者　見学OK｜</title>
-<meta name="description" content="チームシースルーは埼玉県三芳町で活動するバスケットボールチームです。10代から60代までの男女が参加し、楽しくバスケをしています。初心者歓迎、体験参加も受付中！">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Source+Serif+Pro:wght@400;600&display=swap" rel="stylesheet" />
+  <title>バスケチーム公式サイト</title>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro&display=swap" rel="stylesheet" />
   <style>
-    * {
-      margin: 0; padding: 0; box-sizing: border-box;
-    }
     body {
-      font-family: 'Roboto', sans-serif;
-      line-height: 1.7;
-      background-color: #f4f4f9;
-      color: #333;
-    }
-    header {
-      background-color: #2c3e50;
-      color: #fff;
-      padding: 4rem 1rem 2rem;
-      text-align: center;
-    }
-    header h1 {
       font-family: 'Source Serif Pro', serif;
-      font-size: 3rem;
-      margin-bottom: 0.5rem;
+      margin: 0;
+      padding: 0;
+      background-color: #fff;
+      color: #0d1117;
     }
-    header p {
-      font-size: 1.2rem;
-      color: #bdc3c7;
-    }
-    nav {
-      background-color: #34495e;
-      padding: 1rem;
-      text-align: center;
-    }
+
+nav {
+position: relative; /* ::beforeを基準に配置 */
+  z-index: 1;          /* メニューを前面に */
+  display: flex;
+  justify-content: space-between; /* 左右に振り分け */
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: white;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  margin-top: 2.5rem; /* ← この行を追加 */
+}
+
+
+/* 左側のロゴ（チーム名） */
+nav .logo {
+margin-right: auto;
+  padding-left: 8rem; /* 必要に応じて */
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #0d1117;
+}
+
+/* 右側のメニュー */
+nav .menu a {
+  margin-left: auto;
+  padding-right: 2rem; /* 必要に応じて */
+  color: #0d1117;
+margin-left: 1.5rem;
+  text-decoration: none;
+  font-size: 1.5rem;
+  transition: color 0.3s ease;
+}
+nav .menu a:hover {
+  color: #1abc9c;
+}
+
+
     nav a {
-      color: #ecf0f1;
+      color: #0d1117;
+      margin: 0 1.5rem;
       text-decoration: none;
-      margin: 0 1rem;
-      font-weight: 500;
-      font-size: 1rem;
+      font-size: 1.1rem;
       transition: color 0.3s ease;
     }
+
     nav a:hover {
       color: #1abc9c;
     }
-    main {
-      max-width: 960px;
-      margin: 3rem auto;
-      padding: 0 1rem;
-    }
-    section {
-      background: #fff;
+
+    .container {
+  position: relative; /* 点線の基準に必要 */
+  z-index: 0;          /* navより下に */
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr; /* ← 横幅比率を調整 */
+      height: calc(100vh - 80px);
       padding: 2rem;
-      margin-bottom: 2rem;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    }
-    section h2 {
-      font-size: 1.8rem;
-      color: #0d1117;
-      border-left: 5px solid #58a6ff;
-      padding-left: 0.75rem;
-      margin-bottom: 1rem;
-      font-family: 'Source Serif Pro', serif;
-      position: relative;
-    }
-    section ul {
-      list-style: none;
-      padding-left: 0;
-    }
-    section ul li {
-      margin-bottom: 0.5rem;
-    }
-    iframe {
-      width: 100%;
-      height: 300px;
-      border: none;
-      border-radius: 8px;
-      margin-top: 1rem;
-    }
-    footer {
-      background-color: #2c3e50;
-      color: #999;
-      text-align: center;
-      padding: 2rem 1rem;
-      font-size: 0.9rem;
-    }
-    a {
-      color: #1a73e8;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
+      box-sizing: border-box;
+      gap: 0; /* グリッド線のためgapをなくす */
     }
 
-    /* カレンダー */
-    #calendar {
-      position: relative; /* 管理者ボタン配置用 */
-    }
-    #calendar-title {
-      display: inline-block;
-      margin: 0 1rem;
-      font-weight: normal;
-    }
-    #calendar-title button {
-      margin: 0 1rem;
-      font-size: 1.2rem;
-      cursor: pointer;
-      background: none;
-      border: none;
-      color: #1abc9c;
-      font-weight: bold;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      text-align: center;
-      margin-top: 1rem;
-    }
-    th, td {
-      border: 1px solid #ccc;
-      padding: 0.5rem;
-      width: 14.2857%;
-      height: 60px;
-      vertical-align: top;
-      position: relative;
-      cursor: default;
-    }
-.past-day {
-  color: #aaa;
-  background-color: #f8f8f8;
-  text-decoration: line-through;
-  opacity: 0.6;
-}
-
-.today {
-  border: 1px dashed #1abc9c;
-  background-color: transparent;
-  border-radius: 4px;
-  color: inherit;
-}
-
-
-    .event {
-      font-weight: bold;
-      color: #d35400;
-      cursor: pointer;
-      padding-right: 18px; /* スペース確保 */
-    }
-    .event::after {
-      content: "●";
-      position: absolute;
-      top: 4px;
-      right: 5px;
-      font-size: 1rem;
-      color: #e67e22;
-      pointer-events: none;
-    }
-
-    .event {
-  cursor: pointer;
-}
-
-
-    /* イベント追加フォーム */
-    #event-form {
+    .left, .center, .right {
       display: flex;
       justify-content: center;
-      gap: 0.5rem;
-      margin-top: 1rem;
-      flex-wrap: wrap;
-    }
-    #event-form input[type="date"], #event-form input[type="text"] {
-      padding: 0.4rem 0.6rem;
-      font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      min-width: 150px;
-    }
-    #event-form button {
-      background-color: #d35400;
-      border: none;
-      color: white;
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: background-color 0.3s ease;
-    }
-    #event-form button:hover {
-      background-color: #b24300;
+      align-items: center;
+      text-align: center;
     }
 
-    /* エラーメッセージ */
-    #password-error {
-      color: red;
-      margin-top: 0.5rem;
-      font-weight: bold;
-    }
-
- #event-modal {
-  display: none;
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-}
-
-#event-modal .modal-content {
-  background: #fff;
-  padding: 2rem;
-  border-radius: 8px;
-  max-width: 90%;
-  max-height: 80%;
-  overflow-y: auto;
-  position: relative;
-}
-
-#event-modal .close-btn {
-  position: absolute;
-  top: 0.5rem;
-  right: 0.75rem;
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #999;
-  cursor: pointer;
-}
-
-#event-modal .close-btn:hover {
-  color: #333;
-}
-
-
-#contact-form {
-  margin-top: 1rem;
+.center {
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-  background-color: #fff;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  justify-content: flex-start;  /* ← 左寄せに変更 */
+  align-items: center;
+  text-align: left;
 }
 
-#contact-form input[type="text"],
-#contact-form input[type="email"],
-#contact-form textarea {
-  padding: 0.75rem 1rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 1rem;
+
+  .left h2 {
+  font-size: 3.4rem;
+  color: #0d1117;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  margin: 0;
+
+  /* ↓ 追加（浮かび上がる効果） */
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2), 
+               0 4px 15px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+  transition: transform 0.3s ease, text-shadow 0.3s ease;
+}
+
+.left h2:hover {
+  transform: translateY(-5px);
+  text-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+
+   .center p {
+  font-size: 1.4rem;
+  line-height: 1.6;
+  max-width: 100%;
+  text-align: left;
+}
+
+
+   .right {
+  display: flex;
+  justify-content: center;   /* 横方向：中央寄せ */
+  align-items: flex-end;     /* 縦方向：下寄せ */
+  padding: 1rem;
+}
+
+.right img {
   width: 100%;
-  font-family: 'Roboto', sans-serif;
+  max-width: 300px;  /* 小さめのサイズに調整 */
+  height: auto;
 }
 
-#contact-form textarea {
-  min-height: 120px;
-  resize: vertical;
+.guidelines {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  pointer-events: none;
+  z-index: 101;
 }
 
-#contact-form button {
-  background-color: #1abc9c;
-  color: white;
-  padding: 0.75rem;
-  font-size: 1rem;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
+.guidelines::before,
+.guidelines::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  border-left: 2px dotted #ccc;
 }
 
-#contact-form button:hover {
-  background-color: #159d82;
+.guidelines::before {
+  left: 50%;
+}
+
+.guidelines::after {
+  left: 75%;
 }
 
 
-    @media (max-width: 600px) {
-      nav a {
-        display: block;
-        margin: 0.5rem 0;
-      }
-      header h1 {
-        font-size: 2rem;
-      }
-      section h2 {
-        font-size: 1.5rem;
-      }
-      #event-form {
-        flex-direction: column;
-        align-items: center;
-      }
-      #event-form input, #event-form button {
-        width: 90%;
-        max-width: 300px;
-      }
-      /* モバイル時の管理者ボタン位置調整 */
-      #admin-control {
-        position: static;
-        margin-top: 1rem;
-        text-align: center;
-      }
-      #toggle-admin-btn, #logout-btn {
-        margin-left: 0;
-        margin-right: 0.5rem;
-      }
-#contact-form {
-  padding: 1.5rem;
-}
 
-    }
   </style>
 </head>
 <body>
-
-<header>
-  <h1>チームシースルー</h1>
-  <p>バスケットボールチーム - 新メンバー募集中！</p>
-</header>
-
-<nav>
-  <a href="#about">チーム紹介</a>
-  <a href="#schedule">活動日時・場所</a>
-  <a href="#calendar">今月の予定</a>
-  <a href="#join">参加方法</a>
-  <a href="#contact">お問い合わせ</a>
+<!-- ← ここに点線を描くdivを追加 -->
+<div class="guidelines"></div>
+ <nav>
+  <div class="logo">埼玉県三芳町のバスケットボールチーム</div>
+  <div class="menu">
+    <a href="about.html">チーム紹介</a>
+    <a href="schedule.html">スケジュール</a>
+    <a href="access.html">アクセス</a>
+    <a href="contact.html">お問い合わせ</a>
+  </div>
 </nav>
 
-<main>
 
-  <section id="about">
-    <h2>埼玉県三芳町のバスケチーム「チームシースルー」について</h2>
-    <p>
-      毎週楽しくバスケをしているチームです。10代〜60代の男女（学生、社会人）が参加しており、参加者全員が楽しめる活動を行っています。
-      運動不足解消やバスケを楽しみたい方、パスやシュートに自信がなくても大歓迎！お気軽にご参加ください！<br />
-      活動内容は、メンバーそれぞれにシューティングやアップを行い、頃合いを見てゲーム開始となります。<br />
-      ※参加メンバーが少ないときは、５対５のゲームができないことがあります。その場合は、３対３などできる範囲での活動となります。
-    </p>
-  </section>
-
-  <section id="schedule">
-    <h2>活動日時・場所</h2>
-    <ul>
-      <li><strong>日時：</strong> 毎週火曜 20:00〜21:30 　※別の曜日に活動が入ることがあります</li>
-      <li><strong>場所：</strong> 三芳町立三芳中学校 体育館（住所：埼玉県三芳町大字北永井350番地）</li>
-      <li><strong>参加費：</strong> 無料</li>
-    </ul>
-    <iframe 
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d103487.68365860736!2d139.49711102644835!3d35.849245947438035!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6018dd3b0f6b4509%3A0xad4b1470a7518ab1!2z5LiJ6Iqz55S656uL5LiJ6Iqz5Lit5a2m5qCh!5e0!3m2!1sja!2sjp!4v1749170423749!5m2!1sja!2sjp" 
-      allowfullscreen="" 
-      loading="lazy" 
-      referrerpolicy="no-referrer-when-downgrade">
-    </iframe>
-  </section>
-
-  <section id="calendar">
-    <h2>
-      <button id="prev-month">←</button>
-      <span id="calendar-title">🗓 カレンダー</span>
-      <button id="next-month">→</button>
-    </h2>
-    <table>
-      <thead>
-        <tr>
-          <th>日</th><th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th>土</th>
-        </tr>
-      </thead>
-      <tbody id="calendar-body"></tbody>
-    </table>
-    </section> 
-
-  <section id="join">
-    <h2>参加方法</h2>
-    <p>初めての方は「お問い合わせ」よりご連絡ください。見学や体験参加も大歓迎です！</p>
-  </section>
-
-<section id="contact">
-  <h2>お問い合わせ</h2>
-
-<form id="contact-form" action="https://formspree.io/f/xvgrogqo" method="POST">
-    <input type="hidden" name="_next" value="https://paco011.github.io/basketball/thanks.html">
-    <input type="hidden" name="_subject" value="お問い合わせ">
-<input type="hidden" name="_captcha" value="false">
-
-    <input type="text" name="name" placeholder="お名前またはニックネーム" required>
-    <input type="email" name="email" placeholder="メールアドレス" required>
-    <textarea name="message" placeholder="お問い合わせ内容" required></textarea>
-
-    <input type="text" name="_honey" style="display:none">
-    <button type="submit">送信</button>
-  </form>
-
-</section>
+  <div class="container">
+    <div class="left">
+      <h2>チームシースルー</h2>
+    </div>
+    <div class="center">
+      <p>
+        バスケットボールチーム<br>「チームシースルー」です。<br>
+        絆を大切に、初心者から経験者まで<br>楽しく活動しています。
+      </p>
+    </div>
 
 
-
-</main>
-
-<footer>
-  &copy; 2025 チームシースルー. All rights reserved.
-</footer>
-
-<!-- イベント詳細モーダル -->
-<div id="event-modal">
-  <div class="modal-content">
-    <span class="close-btn" id="event-close">&times;</span>
-    <h3>イベントの詳細</h3>
-    <p id="event-detail-text"></p>
-  </div>
+<div class="right">
+  <img src="illustration_white_background.png" alt="バスケットボールのイラスト" />
 </div>
 
-  <script src="calendar.js"></script>
-
-  <script>
-document.addEventListener("DOMContentLoaded", function () {
-  const form = document.getElementById("contact-form");
-  form.addEventListener("submit", function (e) {
-    e.preventDefault(); // 通常送信を止める
-
-    const formData = new FormData(form);
-    fetch(form.action, {
-      method: "POST",
-      body: formData,
-      headers: {
-        'Accept': 'application/json'
-      }
-    })
-    .then(response => {
-      if (response.ok) {
-        window.location.href = "thanks.html";  // リダイレクト先
-      } else {
-        alert("送信に失敗しました。もう一度お試しください。");
-      }
-    })
-    .catch(error => {
-      alert("送信エラーが発生しました。");
-      console.error(error);
-    });
-  });
-});
-</script>
+  </div>
 
 </body>
 </html>
+
