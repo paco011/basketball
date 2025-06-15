@@ -107,9 +107,18 @@
       color: #aaa;
     }
 
-    .event {
-      background-color: #d1f0ff;
-    }
+.event {
+  position: relative;
+}
+
+.event::after {
+  content: "★";
+  color: #1abc9c;
+  font-size: 0.9em;
+  position: absolute;
+  top: 4px;
+  right: 6px;
+}
 
     #event-modal {
       display: none;
