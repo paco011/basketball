@@ -20,13 +20,30 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       text-align: center;
     }
+
+    .message a.button {
+  display: inline-block;
+  margin-top: 1.5rem;
+  padding: 0.75rem 1.5rem;
+  background-color: #1abc9c;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  transition: background-color 0.3s ease;
+}
+
+.message a.button:hover {
+  background-color: #16a085;
+}
+
   </style>
 </head>
 <body>
   <div class="message">
     <h1>お問い合わせありがとうございます</h1>
     <p>メッセージが送信されました。<br>内容を確認させていただき、折り返しご連絡いたします。</p>
-    <a href="index.html">トップページに戻る</a>
+    <a href="index.html" class="button">トップページに戻る</a>
   </div>
 </body>
 </html>
