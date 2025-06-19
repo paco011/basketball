@@ -120,6 +120,65 @@
       font-size: 0.9rem;
       color: #555;
     }
+
+    @media screen and (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+  }
+
+  nav .logo {
+    padding-left: 0;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  nav .menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    width: 100%;
+  }
+
+  nav .menu a {
+    font-size: 1.1rem;
+    padding: 0.5rem 1rem;
+    margin: 0.3rem 0;
+  }
+
+  header h1 {
+    font-size: 2rem;
+  }
+
+  main {
+    padding: 0 1rem;
+  }
+
+  label {
+    font-size: 1rem;
+  }
+
+  input, textarea {
+    font-size: 1rem;
+    padding: 0.6rem;
+  }
+
+  button,
+  .back-button a {
+    font-size: 1rem;
+    padding: 0.6rem 1.2rem;
+  }
+
+  #confirm-area h3 {
+    font-size: 1.3rem;
+  }
+
+  #confirm-area p {
+    font-size: 1rem;
+  }
+}
+
   </style>
 </head>
 <body>
